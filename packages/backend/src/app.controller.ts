@@ -7,66 +7,51 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
-import { Post as PostModel, User as UserModel } from '@prisma/client';
-import { PostService } from 'src/post/post.service';
+import { PostService } from './post/post.service';
+import { Post as PostModel } from '@prisma/client';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly postService: PostService,
-  ) {}
+  constructor(private readonly postService: PostService) {}
 
   @Get('post/:id')
   async getPostById(@Param('id') id: string): Promise<PostModel> {
-    return this.postService.post({
-      id: Number(id),
-    });
+    return this.postService.post({ id: Number(id) });
   }
 
-  @Get('posts')
-  async getPostList(): Promise<PostModel[]> {
-    return this.postService.posts({
-      where: {
-        published: true,
-      },
-    });
+  @Get('feed')
+  async getPublishedPosts(): Promise<PostModel[]> {
+    return this.postService.posts({});
   }
 
   @Post('post')
-  async creteDraft(
-    @Body() postData: { title: string; content?: string; authorEmail: string },
+  async createDraft(
+    @Body() postData: { title: string; content: string },
   ): Promise<PostModel> {
-    const { title, content, authorEmail } = postData;
+    const { title, content } = postData;
     return this.postService.createPost({
       title,
       content,
-      author: {
-        connect: { email: authorEmail },
-      },
     });
   }
 
-  @Post('user')
-  async signupUser(
-    @Body() userData: { name?: string; email: string },
-  ): Promise<UserModel> {
-    return this.userService.createUser(userData);
-  }
-
   @Put('publish/:id')
-  async publishPost(@Param('id') id: string): Promise<PostModel> {
+  async PublishdPost(
+    @Param('id') id: string,
+    @Body() postData: { title: string; content?: string },
+  ): Promise<PostModel> {
+    const { title, content } = postData;
     return this.postService.updatePost({
       where: { id: Number(id) },
-      data: { published: true },
+      data: {
+        title,
+        content,
+      },
     });
   }
 
   @Delete('post/:id')
   async deletePost(@Param('id') id: string): Promise<PostModel> {
-    return this.postService.deletePost({
-      id: Number(id),
-    });
+    return this.postService.deletePost({ id: Number(id) });
   }
 }
