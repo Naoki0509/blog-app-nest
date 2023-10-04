@@ -1,7 +1,7 @@
 export const BlogCard = () => {
   return (
-    <>
-      <h2>test</h2>
-    </>
+    <div>
+      <h2 className="text-2xl"></h2>
+    </div>
   )
 }
