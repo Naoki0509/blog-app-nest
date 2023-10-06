@@ -1,15 +1,26 @@
 version: '3.7'
-
 services:
+  nest:
+    container_name: nest
+    build: .
+    tty: true
+    ports:
+      - '3000:3000'
+    volumes:
+      - type: bind
+        source: .
+        target: /appa
+    depends_on:
+      - db
   db:
+    platfom: linux/x86_64
     image: mysql
     container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: recipe_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: blog-app-nest-db
+      MYSQL_PASSWORD: root
       TZ: UTC
     ports:
       - 3306:3306
@@ -17,3 +28,16 @@ services:
       - ./conf/my.cnf:/etc/mysql/conf.d/my.cnf
 volumes:
   db-store:
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=nestjs-blog-app-nest-db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    ports:
+      - 8080:80
+    depends_on:
+      - db
