@@ -1,30 +1,34 @@
 import { GetStaticProps } from 'next'
 
+import { propagateServerField } from 'next/dist/server/lib/render-server'
+
 import { Layout } from '../components/Layout'
 import { BlogCard } from '../components/mol/Card/blogCard'
 
-const Home = ({ props }: Props) => {
+type FeedType = {
+  id: string
+  title: string
+  subtitle: string
+  updatedAt: string
+}
+
+const Home = (props: FeedType[]) => {
   return (
     <Layout>
       <h1 className="text-center text-4xl font-bold">Blog List</h1>
-      <BlogList data={props} />
+      <div className="flex flex-col">
+        {props.map((item: FeedType) => {
+          return (
+            <BlogCard
+              key={item.id}
+              title={item.title}
+              subtitle={item.subtitle}
+              updatedAt={item.updatedAt}
+            />
+          )
+        })}
+      </div>
     </Layout>
-  )
-}
-
-const BlogList = (data: Props) => {
-  return (
-    <div className="flex flex-col py-8 ">
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
-    </div>
   )
 }
 

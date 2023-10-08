@@ -1,4 +1,11 @@
-export const BlogCard = () => {
+type FeedType = {
+  key: string
+  title: string
+  subtitle: string
+  updatedAt: string
+}
+
+export const BlogCard = (data: FeedType) => {
   return (
     <div className="card border border-gray-100 shadow-lg">
       <div className="card-body">
