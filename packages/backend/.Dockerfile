@@ -1,13 +1,10 @@
-FROM node:18-alpine
-
-RUN npm i -g @nestjs/cli
+FROM node:18-alpine as backend
 
 WORKDIR /app
 
-COPY packages/backend/package*.json ./app
+COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn
 
-CMD [yarn, start:dev]
-
-
+CMD ["yarn", "start:dev"]
