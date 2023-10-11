@@ -1,9 +1,6 @@
 import { GetStaticProps } from 'next'
 
-import { propagateServerField } from 'next/dist/server/lib/render-server'
-
 import { Layout } from '../components/Layout'
-import { BlogCard } from '../components/mol/Card/blogCard'
 
 type FeedType = {
   id: string
@@ -12,22 +9,11 @@ type FeedType = {
   updatedAt: string
 }
 
-const Home = (props: FeedType[]) => {
+const Home = ({ props }: { props: FeedType[] }) => {
   return (
     <Layout>
       <h1 className="text-center text-4xl font-bold">Blog List</h1>
-      <div className="flex flex-col">
-        {props.map((item: FeedType) => {
-          return (
-            <BlogCard
-              key={item.id}
-              title={item.title}
-              subtitle={item.subtitle}
-              updatedAt={item.updatedAt}
-            />
-          )
-        })}
-      </div>
+      <div className="flex flex-col"></div>
     </Layout>
   )
 }
@@ -45,6 +31,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const data = await res.json()
 
   return {
-    props: data,
+    props: {
+      data,
+    },
   }
 }
