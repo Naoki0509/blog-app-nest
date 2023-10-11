@@ -6,14 +6,26 @@ type FeedType = {
   id: string
   title: string
   subtitle: string
-  updatedAt: string
 }
 
-const Home = ({ props }: { props: FeedType[] }) => {
+type Props = {
+  props: FeedType
+}
+
+const Home = ({ props }: Props) => {
+  console.log(props.)
+
   return (
     <Layout>
       <h1 className="text-center text-4xl font-bold">Blog List</h1>
-      <div className="flex flex-col"></div>
+      <div className="flex flex-col">
+        {props.map((item) => (
+          <div key={item.id} className="card">
+            <h2 className="text-2xl font-bold">{item.title}</h2>
+            <p className="text-gray-500">{item.subtitle}</p>
+          </div>
+        ))}
+      </div>
     </Layout>
   )
 }
