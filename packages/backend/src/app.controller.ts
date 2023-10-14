@@ -14,25 +14,19 @@ import { Post as PostModel } from '@prisma/client';
 export class AppController {
   constructor(private readonly postService: PostService) {}
 
-  @Get('post/:id')
-  async getPostById(@Param('id') id: string): Promise<PostModel> {
-    return this.postService.post({ id: Number(id) });
-  }
-
   @Get('feed')
   async getAllPosts(): Promise<PostModel[]> {
     return this.postService.posts({});
   }
 
   @Post('post')
-  async createDraft(
-    @Body() postData: { title: string; content: string },
-  ): Promise<PostModel> {
-    const { title, content } = postData;
-    return this.postService.createPost({
-      title,
-      content,
-    });
+  async createDraft(@Body() postData: PostModel): Promise<PostModel> {
+    return this.postService.createPost(postData);
+  }
+
+  @Get('post/:id')
+  async getPostById(@Param('id') id: string): Promise<PostModel> {
+    return this.postService.post({ id: Number(id) });
   }
 
   @Put('publish/:id')
