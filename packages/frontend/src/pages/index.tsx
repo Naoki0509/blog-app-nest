@@ -1,29 +1,26 @@
 import { GetStaticProps } from 'next'
 
-import { Layout } from '../components/Layout'
+import Link from 'next/link'
 
-type FeedType = {
-  id: string
-  title: string
-  subtitle: string
-}
+import { Layout } from '../components/Layout'
+import { FeedType } from '../types'
 
 type Props = {
-  props: FeedType
+  data: FeedType[]
 }
 
-const Home = ({ props }: Props) => {
-  console.log(props.)
-
+const Home = ({ data }: Props) => {
   return (
     <Layout>
       <h1 className="text-center text-4xl font-bold">Blog List</h1>
-      <div className="flex flex-col">
-        {props.map((item) => (
-          <div key={item.id} className="card">
-            <h2 className="text-2xl font-bold">{item.title}</h2>
-            <p className="text-gray-500">{item.subtitle}</p>
-          </div>
+      <div className="flex flex-col pt-8">
+        {data.map((item) => (
+          <Link key={item.id} href={`${item.id}`}>
+            <div key={item.id} className="border-w card border p-6 shadow-md">
+              <h2 className="text-2xl font-bold">{item.title}</h2>
+              <p className="text-gray-500">{item.subtitle}</p>
+            </div>
+          </Link>
         ))}
       </div>
     </Layout>
@@ -33,13 +30,7 @@ const Home = ({ props }: Props) => {
 export default Home
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/feed`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'GET',
-  })
-
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/feed`)
   const data = await res.json()
 
   return {
