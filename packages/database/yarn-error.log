@@ -1,0 +1,48 @@
+Arguments: 
+  /Users/nh/.nvm/versions/node/v16.19.0/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js
+
+PATH: 
+  /Users/nh/.nvm/versions/node/v16.19.0/bin:/opt/homebrew/opt/openssl@3/bin:/Users/nh/.rbenv/shims:/opt/homebrew/share/google-cloud-sdk/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/opt/homebrew/bin:/Users/nh/.fig/bin:/Users/nh/.local/bin:/Users/nh/Library/Android/sdk/emulator:/Users/nh/Library/Android/sdk/platform-tools
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.19.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  SyntaxError: /Users/nh/Desktop/code/p/blog-app-nest/packages/database/package.json: Unexpected token } in JSON at position 249
+      at JSON.parse (<anonymous>)
+      at /opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (/opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:310:30)
+      at /opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:321:13
+
+npm manifest: 
+  {
+  	"name": "database",
+  	"version": "1.0.0",
+  	"license": "MIT",
+  	"main": "./dist/index.js",
+  	"module": "./dist/index.mjs",
+  	"types": "./dist/index.d.ts",
+  	"dependencies": {
+  		"@prisma/client": "^5.4.2",
+  		"prisma": "^5.4.2",
+  		"ts-node": "^10.9.1",
+  	},
+  	"devDependencies": {
+  		"@types/node": "^20.8.7",
+  		"tsup": "^7.2.0",
+  		"typescript": "^5.2.2"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
