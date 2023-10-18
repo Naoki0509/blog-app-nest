@@ -1,4 +1,3 @@
-import { Post } from 'database'
 import { GetStaticProps } from 'next'
 
 import Link from 'next/link'
@@ -7,7 +6,7 @@ import { Layout } from '../components/Layout'
 import { FeedType } from '../types'
 
 type Props = {
-  data: Post[]
+  data: FeedType[]
 }
 
 const Home = ({ data }: Props) => {
