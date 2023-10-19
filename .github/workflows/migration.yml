@@ -3,9 +3,9 @@ name: Prisma Migrate
 on:
   push:
     branches:
-      - "master"
+      - master
     paths:
-      - "/packages/database/prisma/**"
+      - /packages/database/prisma/**
   workflow_dispatch:
 
 jobs:
