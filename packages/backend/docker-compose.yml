@@ -1,17 +1,22 @@
 version: '3.7'
 services:
-  db:
-    platform: linux/x86_64
-    image: mysql:5.7
-    container_name: db
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: blog_db
-      MYSQL_PASSWORD: root
-      TZ: 'Asia/Tokyo'
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  node:
+    image: node:latest
+    working_dir: /app
+    tty: true
     volumes:
-      - ./conf/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./docker/data:/var/lib/mysql
+      - .:/app
+
+  db:
+    image: postgres:14.2
+
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: blog_db
+
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
     ports:
-      - 3306:3306
+      - '5432:5432'
