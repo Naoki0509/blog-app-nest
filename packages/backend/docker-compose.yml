@@ -1,19 +1,22 @@
 version: '3.7'
-
 services:
-  db:
-    image: mysql
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: recipe_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      TZ: UTC
-    ports:
-      - 3306:3306
+  node:
+    image: node:latest
+    working_dir: /app
+    tty: true
     volumes:
-      - ./conf/my.cnf:/etc/mysql/conf.d/my.cnf
-volumes:
-  db-store:
+      - .:/app
+
+  db:
+    image: postgres:14.2
+
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: blog_db
+
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+    ports:
+      - '5432:5432'
